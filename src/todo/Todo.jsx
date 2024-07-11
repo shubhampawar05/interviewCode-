@@ -17,15 +17,14 @@ const Todo = () => {
         }
     }
 
-    const MarkAsDone=({item})=>{
+    const MarkAsDone = (item) => {
         console.log(item);
-    //    const tododata = {...item, completed:!completed}
-    //     setTodos((prev)=>{
-    //        return {...prev,tododata}
-    //     })
-
-        
-    }
+        setTodos(prevTodos =>
+          prevTodos.map(todo =>
+            todo.id === item.id ? { ...todo, completed: !todo.completed } : todo
+          )
+        );
+      };
 
     useEffect(  ()=>{
          getTodos();
@@ -39,7 +38,8 @@ const Todo = () => {
         </div>
         <div className='text-center'>
             {/* todos */}
-           {todos?.todos.map(( item , idx )=>{
+           {todos?.todos?.map(( item , idx )=>{
+            console.log(item);
             return(
                <div className=' flex '>
                     <button onClick={()=>MarkAsDone(item)} className=' border p-1 ml-1 '>done</button>
